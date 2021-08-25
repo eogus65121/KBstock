@@ -11,7 +11,7 @@ import java.util.Map;
 
 @RestController
 public class SlackWebhookSend {
-    @GetMapping("/send")
+    @GetMapping("/slack/sendMessage")
     public void send(){
         RestTemplate restTemplate = new RestTemplate();
 
