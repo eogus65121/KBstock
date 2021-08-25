@@ -1,5 +1,6 @@
 package com.ezTstock.slack;
 
+import com.ezTstock.config.SlackImpl;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,17 +12,17 @@ import java.util.Map;
 
 @RestController
 public class SlackWebhookSend {
-    @GetMapping("/slack/sendMessage")
+    @GetMapping("/webHookSend")
     public void send(){
         RestTemplate restTemplate = new RestTemplate();
+        SlackImpl webHook = new SlackImpl();
+        String url = webHook.readJ("webHookUrl");
 
         Map<String, Object> request = new HashMap<>();
         request.put("username", "KBstockChatBot");
         request.put("text", "webhook message sender test hhh");
 
         HttpEntity<Map<String, Object>> entity = new HttpEntity<Map<String, Object>>(request);
-
-        String url = "https://hooks.slack.com/services/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";
 
         restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
 
