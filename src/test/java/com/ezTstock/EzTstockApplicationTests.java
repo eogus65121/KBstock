@@ -10,5 +10,4 @@ class EzTstockApplicationTests {
 	void contextLoads() {
 	}
 
-
 }
