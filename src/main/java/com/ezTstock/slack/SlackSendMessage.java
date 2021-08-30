@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 public class SlackSendMessage {
-    static void sendMessage(String text){
+    static void slackSendMessage(String text){
         SlackImpl slack_json = new SlackImpl();
         String token = slack_json.readJ("token");
         String channel_id = slack_json.readJ("channel");
