@@ -12,11 +12,11 @@ import java.io.IOException;
 public class SlackSendMessage {
     static void slackSendMessage(String text){
         SlackImpl slack_json = new SlackImpl();
-        String token = slack_json.readJ("token");
-        String channel_id = slack_json.readJ("channel");
+        String token = slack_json.readJ("bot_token");
+        String channel = slack_json.readJ("channel");
         try {
             ChatPostMessageResponse response = Slack.getInstance().methods(token).chatPostMessage(req -> req
-                    .channel(channel_id)
+                    .channel(channel)
                     .text(text));
             if (response.isOk()) {
                 Message postedMessage = response.getMessage();
@@ -30,10 +30,12 @@ public class SlackSendMessage {
         }
     }
 
-    /* 출력용
+    /*
     public static void main(String[] args) throws Exception {
-        sendMessage("new test message");
+        slackSendMessage("test");
     }
+
      */
+
 
 }
