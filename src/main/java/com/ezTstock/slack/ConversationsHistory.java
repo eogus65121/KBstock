@@ -38,9 +38,4 @@ public class ConversationsHistory {
         }
         return "";
     }
-
-    /*
-    public static void main(String[] args) throws Exception {
-        fetchHistory();
-    }*/
 }
