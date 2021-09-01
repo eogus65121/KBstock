@@ -8,7 +8,7 @@ import java.io.IOException;
 
 
 public class CurrentStockInfo {
-    static String javaParsing(String subject) throws IOException {
+    public String javaParsing(String subject) throws IOException {
         Document getCode = Jsoup.connect("https://www.ktb.co.kr/trading/popup/itemPop.jspx")
                 .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Safari/537.36")
                 .header("Accept-Language", "ko")
@@ -42,16 +42,16 @@ public class CurrentStockInfo {
         return returnVal;
     }
 
-    public static String changePM(String diff){ // 상승과 하락으로 표시된 증감치에 대한 설명을 +와 -로 대치
+    public String changePM(String diff){ // 상승과 하락으로 표시된 증감치에 대한 설명을 +와 -로 대치
         if(diff.startsWith("하락 "))
             diff = diff.replace("하락 ", "-");
         else if(diff.startsWith("상승 "))
             diff = diff.replace("상승 ", "+");
         return diff;
     }
-      //출력문
+    /*//출력문
     public static void main(String[] args) throws IOException {
         System.out.println(javaParsing("카카오"));
-    }
+    }*/
 
 }
