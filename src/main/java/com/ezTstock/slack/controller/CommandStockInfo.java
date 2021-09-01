@@ -19,7 +19,7 @@ public class CommandStockInfo {
     @PostMapping(value = "/slack/command/stockInfo", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public void commandStockInfo(SlashCommandRequest dataPayload){
         log.info("Request 'POST /slack/command/news' request: {}", dataPayload);
-        String subject = dataPayload.toString().split("text=")[1].split(",")[0];
+        String subject = dataPayload.toString().split("text=")[1].split(",")[0].replaceAll(" ", "");
         CurrentStockInfo currentStockInfo = new CurrentStockInfo();
         SlackSendMessage sendMessage = new SlackSendMessage();
         try{
