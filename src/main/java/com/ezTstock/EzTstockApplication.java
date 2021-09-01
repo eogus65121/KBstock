@@ -9,5 +9,4 @@ public class EzTstockApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EzTstockApplication.class, args);
 	}
-
 }
