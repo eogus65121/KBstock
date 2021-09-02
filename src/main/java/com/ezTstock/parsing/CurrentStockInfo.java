@@ -8,7 +8,7 @@ import java.io.IOException;
 
 
 public class CurrentStockInfo {
-    public String javaParsing(String subject) throws IOException {
+    public String []javaParsing(String subject) throws IOException {
         Document getCode = Jsoup.connect("https://www.ktb.co.kr/trading/popup/itemPop.jspx")
                 .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Safari/537.36")
                 .header("Accept-Language", "ko")
@@ -18,7 +18,10 @@ public class CurrentStockInfo {
         Elements elementC = getCode.select("select > option");
 
         String eleToStr = elementC.toString();
+        // subject = 롯데
         String[] tmp1 = eleToStr.split(subject);
+        // 롯데 제과
+        // 롯데 현대제약
         String subject_code = tmp1[0].substring(tmp1[0].length()-8,tmp1[0].length()-2);
 
         Document searchDoc = Jsoup.connect("https://finance.naver.com/item/sise.nhn?code="+subject_code).get(); // 네이버> http://www.paxnet.co.kr/stock/analysis/main?abbrSymbol=
@@ -36,10 +39,12 @@ public class CurrentStockInfo {
         yesterday = yesterday.substring(1,yesterday.length());
         returnVal += "-전일가: "+yesterday+"\n"; // 전일가 추가
         returnVal += "-거래량: "+searchDoc.getElementById("_quant").text()+"\n"; // 거래량 추가
-        returnVal += "-거래대금: "+searchDoc.getElementById("_amount").text()+"백만\n"; // 거래대금 추가
-        returnVal += "http://cichart.paxnet.co.kr/pax/chart/candleChart/V201716/paxCandleChartV201716Daily.jsp?abbrSymbol="+subject_code+"\n";
+        returnVal += "-거래대금: "+searchDoc.getElementById("_amount").text()+"백만"; // 거래대금 추가
+        String url = "http://cichart.paxnet.co.kr/pax/chart/candleChart/V201716/paxCandleChartV201716Daily.jsp?abbrSymbol="+subject_code;
 
-        return returnVal;
+        String [] param = {returnVal, url};
+
+        return param;
     }
 
     public String changePM(String diff){ // 상승과 하락으로 표시된 증감치에 대한 설명을 +와 -로 대치

@@ -1,6 +1,7 @@
 package com.ezTstock.slack.controller;
 
 import com.ezTstock.parsing.CurrentStockInfo;
+import com.ezTstock.slack.SlackSendImage;
 import com.ezTstock.slack.SlackSendMessage;
 import com.ezTstock.slack.dto.SlashCommandRequest;
 import org.springframework.http.MediaType;
@@ -22,9 +23,12 @@ public class CommandStockInfo {
         String subject = dataPayload.toString().split("text=")[1].split(",")[0].replaceAll(" ", "");
         CurrentStockInfo currentStockInfo = new CurrentStockInfo();
         SlackSendMessage sendMessage = new SlackSendMessage();
+        SlackSendImage sendImage = new SlackSendImage();
+
         try{
-            String full_text = currentStockInfo.javaParsing(subject);
-            sendMessage.slackSendMessage(full_text);
+            String [] param = currentStockInfo.javaParsing(subject);
+            sendMessage.slackSendMessage(param[0]);
+            sendImage.slackSendImage(param[1]);
         }catch(IOException e){
             e.printStackTrace();
         }
