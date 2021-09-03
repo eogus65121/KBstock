@@ -1,12 +1,10 @@
-package com.ezTstock.slack;
+package com.ezTstock.slack.function;
 
 import com.ezTstock.config.SlackImpl;
 import com.slack.api.Slack;
 import com.slack.api.methods.SlackApiException;
 import com.slack.api.model.Message;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.ezTstock.slack;
+package com.ezTstock.slack.function;
 
 import com.ezTstock.config.SlackImpl;
 import org.springframework.http.HttpEntity;

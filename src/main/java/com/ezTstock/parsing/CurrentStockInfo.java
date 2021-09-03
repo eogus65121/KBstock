@@ -18,10 +18,7 @@ public class CurrentStockInfo {
         Elements elementC = getCode.select("select > option");
 
         String eleToStr = elementC.toString();
-        // subject = 롯데
         String[] tmp1 = eleToStr.split(subject);
-        // 롯데 제과
-        // 롯데 현대제약
         String subject_code = tmp1[0].substring(tmp1[0].length()-8,tmp1[0].length()-2);
 
         Document searchDoc = Jsoup.connect("https://finance.naver.com/item/sise.nhn?code="+subject_code).get(); // 네이버> http://www.paxnet.co.kr/stock/analysis/main?abbrSymbol=
@@ -42,9 +39,9 @@ public class CurrentStockInfo {
         returnVal += "-거래대금: "+searchDoc.getElementById("_amount").text()+"백만"; // 거래대금 추가
         String url = "http://cichart.paxnet.co.kr/pax/chart/candleChart/V201716/paxCandleChartV201716Daily.jsp?abbrSymbol="+subject_code;
 
-        String [] param = {returnVal, url};
+        String [] result = {returnVal, url};
 
-        return param;
+        return result;
     }
 
     public String changePM(String diff){ // 상승과 하락으로 표시된 증감치에 대한 설명을 +와 -로 대치

@@ -1,4 +1,4 @@
-package com.ezTstock.slack;
+package com.ezTstock.slack.function;
 
 import com.ezTstock.config.SlackImpl;
 import com.slack.api.Slack;
@@ -8,25 +8,16 @@ import com.slack.api.model.Message;
 
 import java.io.IOException;
 
-import static com.slack.api.model.block.Blocks.*;
-
-public class SlackSendImage {
-
-    public static void slackSendImage(String img_url){
+public class SlackSendMessage {
+    public void slackSendMessage(String text){
         SlackImpl slack_json = new SlackImpl();
         String token = slack_json.readJ("bot_token");
         String channel = slack_json.readJ("channel");
-        System.out.println(img_url);
+        System.out.println(text);
         try {
             ChatPostMessageResponse response = Slack.getInstance().methods(token).chatPostMessage(req -> req
                     .channel(channel)
-                    .blocks(asBlocks(
-                            image(q -> q
-                                    .imageUrl(img_url)
-                                    .altText("현재 주식 동향")
-                            )
-                            )
-                    ));
+                    .text(text));
             if (response.isOk()) {
                 Message postedMessage = response.getMessage();
             } else {
@@ -38,9 +29,13 @@ public class SlackSendImage {
             // Throwing this exception indicates your app or Slack servers had a connectivity issue.
         }
     }
-/*
+
+    /*
     public static void main(String[] args) throws Exception {
         slackSendMessage("test");
     }
-*/
+
+     */
+
+
 }
