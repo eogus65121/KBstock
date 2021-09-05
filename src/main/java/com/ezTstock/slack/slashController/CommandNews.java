@@ -1,10 +1,10 @@
 package com.ezTstock.slack.slashController;
 
 import com.ezTstock.parsing.StockNews;
-import com.ezTstock.slack.function.SlackSendMessage;
 import com.ezTstock.slack.dto.SlashCommandRequest;
-import org.springframework.http.MediaType;
+import com.ezTstock.slack.function.SlackSendMessage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,8 +23,8 @@ public class CommandNews {
         StockNews stockNews = new StockNews();
 
         try{
-            String news_text = stockNews.javaParsingNews(subject);
-            sendMessage.slackSendMessage(news_text);
+            String[] news = stockNews.javaParsingNews(subject);
+            sendMessage.slackSendMessage(news);
         }catch(IOException e){
             e.printStackTrace();
         }

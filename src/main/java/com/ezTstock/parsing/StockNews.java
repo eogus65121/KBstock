@@ -8,7 +8,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 public class StockNews {
-    public String javaParsingNews(String subject) throws IOException {
+    public static String[] javaParsingNews(String subject) throws IOException {
         Document getCode = Jsoup.connect("https://www.ktb.co.kr/trading/popup/itemPop.jspx")
                 .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Safari/537.36")
                 .header("Accept-Language", "ko")
@@ -21,7 +21,7 @@ public class StockNews {
         String[] tmp1 = eleToStr.split(subject);
         String subject_code = tmp1[0].substring(tmp1[0].length() - 8, tmp1[0].length() - 2);
 
-        Document searchDoc = Jsoup.connect("http://www.paxnet.co.kr/news/066570/stock?stockCode=066570&objId=S" + subject_code).get();
+        Document searchDoc = Jsoup.connect("http://www.paxnet.co.kr/news/"+subject_code+"/stock?stockCode="+subject_code+"&objId=S"+subject_code).get();
 
         String[] threeNews = {"","",""}; //상위 3개의 뉴스 획득용 배열
         int idx = 0;
@@ -61,29 +61,31 @@ public class StockNews {
                     subIdx=false;
                 }
                 else{
-                    threeNews[idx] = threeNews[idx]+foot.text()+"\n";
+                    threeNews[idx] = threeNews[idx]+foot.text();
                     subIdx=true;
                     idx++;
                 }
             }
         }
         
-        String news = "[ "+subject+" 관련 최신뉴스 ]\n";
+        String[] news = {"*[ "+subject+" 관련 최신뉴스 ]*","","",""};
 
-        idx = 0;
-        for(String concat : threeNews){
-            if (idx > 1) {
-                news = news+concat;
-            }else{
-                news = news+concat+"\n"; //"------------------------------------------------------------------------------------------------\n";
-            }
+        idx = 1;
+        for(String paste : threeNews){
+            news[idx] = paste;
             idx++;
         }
 
         return news;
     }
 
-//    public static void main(String[] args) throws IOException {
-//        System.out.println(javaParsingNews("LG전자"));
-//    }
+    /*
+    public static void main(String[] args) throws IOException {
+        String[] tmp = (javaParsingNews("LG전자"));
+
+        for(String str:tmp){
+            System.out.println(str);
+        }
+    }
+    */
 }
