@@ -12,26 +12,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-
 @Slf4j
 @RestController
 @RequestMapping
 public class CommandStockInfo {
+    CurrentStockInfo currentStockInfo = new CurrentStockInfo();
+    SlackSendMessage sendMessage = new SlackSendMessage();
+    SlackSendImage sendImage = new SlackSendImage();
+
     @PostMapping(value = "/slack/command/stockInfo", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public void commandStockInfo(SlashCommandRequest dataPayload){
-        log.info("Request 'POST /slack/command/news' request: {}", dataPayload);
-        String subject = dataPayload.toString().split("text=")[1].split(",")[0].replaceAll(" ", "");
-        CurrentStockInfo currentStockInfo = new CurrentStockInfo();
-        SlackSendMessage sendMessage = new SlackSendMessage();
-        SlackSendImage sendImage = new SlackSendImage();
-
-        try{
-            String [] param = currentStockInfo.javaParsing(subject);
-            sendMessage.slackSendMessage(param[0]);
-            sendImage.slackSendImage(param[1]);
-        }catch(IOException e){
-            e.printStackTrace();
+        log.info("Request 'POST /slack/command/stockInfo' request: {}", dataPayload);
+        String subject = dataPayload.getText().replaceAll(" ", "");
+        if(subject.equals("")){
+            sendMessage.slackSendMessage("종목을 입력해주세요.");
+        }else {
+            try {
+                String[] param = currentStockInfo.javaParsing(subject);
+                sendMessage.slackSendMessage(param[0]);
+                sendImage.slackSendImage(param[1]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 }
