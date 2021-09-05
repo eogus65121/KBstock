@@ -85,12 +85,12 @@ public class SlackSendMessage {
         }
     }
 
-    ///*
+    /*
     public static void main(String[] args) throws Exception {
         slackSendMessage("test");
     }
 
-     //*/
+    */
 
 
 }
