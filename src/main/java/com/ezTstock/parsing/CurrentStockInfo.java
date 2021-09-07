@@ -23,25 +23,24 @@ public class CurrentStockInfo {
 
         Document searchDoc = Jsoup.connect("https://finance.naver.com/item/sise.nhn?code="+subject_code).get(); // 네이버> http://www.paxnet.co.kr/stock/analysis/main?abbrSymbol=
 
-        String returnVal = "[ "+subject+" 정보 ]\n";
-        returnVal += "-현재가: "+searchDoc.getElementById("_nowVal").text()+"\n"; //현재가 추가
-        String diff = searchDoc.getElementById("_diff").text(); // 증감치 추가
+        String[] returnVal = new String[8];
+        returnVal[0] = "[ "+subject+" 주식 정보 ]";
+        returnVal[1] = "-현재가: "+searchDoc.getElementById("_nowVal").text(); //현재가 추가
+        String diff = searchDoc.getElementById("_diff").text(); // 증감치 tmp
         diff = changePM(diff);
-        returnVal += "-증감치: "+diff+"\n";
-        returnVal += "-증감률: "+searchDoc.getElementById("_rate").text()+"\n"; // 증감률 추가
+        returnVal[2] = "-증감치: "+diff; //증감치 추가
+        returnVal[3] = "-증감률: "+searchDoc.getElementById("_rate").text(); // 증감률 추가
         String[] tmp2 = searchDoc.toString().split("전일가");
         String[] tmp3 = tmp2[1].split("거래량");
         String[] tmp4 = tmp3[0].split("\n"); // tmp4[0] => 전일가
         String yesterday = tmp4[0];
         yesterday = yesterday.substring(1,yesterday.length());
-        returnVal += "-전일가: "+yesterday+"\n"; // 전일가 추가
-        returnVal += "-거래량: "+searchDoc.getElementById("_quant").text()+"\n"; // 거래량 추가
-        returnVal += "-거래대금: "+searchDoc.getElementById("_amount").text()+"백만"; // 거래대금 추가
-        String url = "http://cichart.paxnet.co.kr/pax/chart/candleChart/V201716/paxCandleChartV201716Daily.jsp?abbrSymbol="+subject_code;
+        returnVal[4] = "-전일가: "+yesterday; // 전일가 추가
+        returnVal[5] = "-거래량: "+searchDoc.getElementById("_quant").text(); // 거래량 추가
+        returnVal[6] = "-거래대금: "+searchDoc.getElementById("_amount").text(); // 거래대금 추가
+        returnVal[7] = "http://cichart.paxnet.co.kr/pax/chart/candleChart/V201716/paxCandleChartV201716Daily.jsp?abbrSymbol="+subject_code;
 
-        String [] result = {returnVal, url};
-
-        return result;
+        return returnVal;
     }
 
     public String changePM(String diff){ // 상승과 하락으로 표시된 증감치에 대한 설명을 +와 -로 대치

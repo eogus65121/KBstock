@@ -29,8 +29,7 @@ public class CommandStockInfo {
         }else {
             try {
                 String[] param = currentStockInfo.javaParsing(subject);
-                sendMessage.slackSendMessage(param[0]);
-                sendImage.slackSendImage(param[1]);
+                sendImage.slackSendImage(param);
             } catch (IOException e) {
                 e.printStackTrace();
             }
