@@ -12,11 +12,11 @@ public interface varianceValueMapper {
     List<varianceValue> selectVarianceValue(@Param("user_name") String user_name);
 
     @Insert("insert into variance_value values(#{subject_name}, #{user_name}, #{value})") //variance insert
-    void insertVarianceValue(@Param("subject_name") String subject_name, @Param("user_name") String user_name, @Param("value") float value);
+    void insertVarianceValue(@Param("subject_name") String subject_name, @Param("user_name") String user_name, @Param("value") String value);
 
     @Delete("delete from variance_value where subject_name=#{subject_name} and user_name=#{user_name}") // variance delete
     void deleteVarianceValue(@Param("subject_name") String subject_name, @Param("user_name") String user_name);
 
     @Update("update variance_value set value=#{value} where subject_name=#{subject_name} and user_name=#{user_name}") // variance value update
-    void updateVarianceValue(@Param("subject_name") String subject_name, @Param("user_name") String user_name, @Param("value") float value);
+    void updateVarianceValue(@Param("subject_name") String subject_name, @Param("user_name") String user_name, @Param("value") String value);
 }

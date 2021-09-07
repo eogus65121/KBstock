@@ -18,12 +18,12 @@ public class VarianceValueController {
     }
 
     @PutMapping("/variance/add/user")
-    public void addVariance(@RequestParam("subject_name") String subject_name, @RequestParam("user_name") String user_name, @RequestParam("value") float value){
+    public void addVariance(@RequestParam("subject_name") String subject_name, @RequestParam("user_name") String user_name, @RequestParam("value") String value){
         mapper.insertVarianceValue(subject_name, user_name, value);
     }
 
     @PostMapping("/variance/value/update")
-    public void updateVariance(@RequestParam("subject_name") String subject_name, @RequestParam("user_name") String user_name, @RequestParam("value") float value){
+    public void updateVariance(@RequestParam("subject_name") String subject_name, @RequestParam("user_name") String user_name, @RequestParam("value") String value){
         mapper.updateVarianceValue(subject_name, user_name, value);
     }
 

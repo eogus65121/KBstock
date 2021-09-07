@@ -8,9 +8,9 @@ import lombok.Setter;
 public class varianceValue {
     private String subject_name;
     private String user_name;
-    private float value;
+    private String value;
 
-    public varianceValue(String subject_name, String user_name, float value){
+    public varianceValue(String subject_name, String user_name, String value){
         super();
         this.subject_name = subject_name;
         this.user_name = user_name;
