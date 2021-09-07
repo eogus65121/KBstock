@@ -1,24 +1,16 @@
 package com.ezTstock.slack.slashController;
 
-import com.ezTstock.stock_db.model.userProfile;
 import com.ezTstock.slack.dto.SlashCommandRequest;
 import com.ezTstock.slack.function.ConversationsHistory;
 import com.ezTstock.slack.function.SlackSendMessage;
-import com.ezTstock.stock_db.controller.UserProfileController;
 import com.ezTstock.stock_db.urlRequest.UrlRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 @Slf4j
 @RestController
@@ -65,6 +57,18 @@ public class CommandRTVariance {
     public void CommandRTVAdd(SlashCommandRequest dataPayload){
         log.info("Request 'POST /slack/command/RTVAdd' request: {}", dataPayload);
         String user_name = dataPayload.getUser_name();
+
+        try{
+            if(urlRequest.user_get_name(user_name) == null){
+                sendMessage.slackSendMessage("계정이 없습니다. '/rtv'를 입력하여 계정을 추가해주세요");
+            }else{
+
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+
         /*
         계정이 없습니다 '/rtv'를 실행해서 계정을 추가하세요
         원하는 종목 명
