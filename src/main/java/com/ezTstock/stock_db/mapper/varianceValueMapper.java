@@ -3,11 +3,13 @@ package com.ezTstock.stock_db.mapper;
 import com.ezTstock.stock_db.model.varianceValue;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 @Mapper
 public interface varianceValueMapper {
 
     @Select("select * from variance_value where user_name=#{user_name}") //variance select
-    String selectVarianceValue(@Param("user_name") String user_name);
+    List<varianceValue> selectVarianceValue(@Param("user_name") String user_name);
 
     @Insert("insert into variance_value values(#{subject_name}, #{user_name}, #{value})") //variance insert
     void insertVarianceValue(@Param("subject_name") String subject_name, @Param("user_name") String user_name, @Param("value") float value);

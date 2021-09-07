@@ -1,7 +1,6 @@
 package com.ezTstock.stock_db.mapper;
 
 import org.apache.ibatis.annotations.*;
-import org.springframework.jmx.export.annotation.ManagedOperationParameter;
 
 @Mapper
 public interface userProfileMapper {

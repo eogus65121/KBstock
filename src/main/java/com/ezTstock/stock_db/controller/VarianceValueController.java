@@ -1,9 +1,10 @@
 package com.ezTstock.stock_db.controller;
 
 import com.ezTstock.stock_db.mapper.varianceValueMapper;
+import com.ezTstock.stock_db.model.varianceValue;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
+import java.util.List;
 
 @RestController
 public class VarianceValueController {
@@ -11,8 +12,8 @@ public class VarianceValueController {
 
     public VarianceValueController(varianceValueMapper mapper){ this.mapper = mapper; }
 
-    @GetMapping("/variance/get/user_data") //list 값으로 변경
-    public String getVarianceValue(@RequestParam("user_name") String user_name){
+    @GetMapping("/variance/get/user_data")
+    public List<varianceValue> getVarianceValue(@RequestParam("user_name") String user_name){
         return mapper.selectVarianceValue(user_name);
     }
 
