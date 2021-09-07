@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 public class CheckNowValue {
-    public static String[] checkStockValue(String subject, int compVal, double expectDiff) throws IOException {
+    public String[] checkStockValue(String subject, int compVal, double expectDiff) throws IOException {
         Document getCode = Jsoup.connect("https://www.ktb.co.kr/trading/popup/itemPop.jspx")
                 .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Safari/537.36")
                 .header("Accept-Language", "ko")
@@ -28,9 +28,9 @@ public class CheckNowValue {
         double diff = trimedVal -compVal; //현재가-기준가
         diff = Math.round((diff/compVal)*10000)/100.0;
         System.out.println(diff);
-        String[] returnVal = {"0","",""};
+        String[] returnVal = {"0","","", subject_code};
 
-        if(diff>=expectDiff){
+        if(Math.abs(diff)>=Math.abs(expectDiff)){
             returnVal[0] = "1";
         }
         returnVal[1] = Integer.toString((int)trimedVal);
