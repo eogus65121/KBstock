@@ -1,8 +1,12 @@
 package com.ezTstock.stock_db.urlRequest;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 
 public class UrlRequest {
 
@@ -25,7 +29,7 @@ public class UrlRequest {
         out.close();
         con.getInputStream();
     }
-
+/*
     public void user_delete_user(String user_name) throws IOException{
         URL obj = new URL("http://localhost:8080/db/delete/user?name="+user_name);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -36,17 +40,27 @@ public class UrlRequest {
         con.connect();
     }
 
-    public String variance_get_userData(String name) throws IOException{  // return list 형식 get
-        URL obj = new URL("http://localhost:8080/variance/get/user_data?name=" + name);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
-        String line = in.readLine();
-        return line;
-    }
+ */
 
-    public void variance_insert_value(String subject_name, String name, String value) throws IOException{ //put
-        URL obj = new URL("http://localhost:8080/variance/add/user?subject="+subject_name+"&user_name="+name+"&value="+value);
+    // about variance table
+    public String variance_get_userSubject(String name) throws IOException{
+        Gson gson = new Gson();
+        URL obj = new URL("http://localhost:8080/variance/get/user_data?user_name="+name);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        JsonArray jay = gson.fromJson(in, JsonArray.class);
+        String text = "";
+        for(int i = 0; i < jay.size(); i++){
+            text += jay.get(i).toString().split(":")[1].replace(",\"user_name\"", " : ").replace("}", "");
+            text += jay.get(i).toString().split(":")[3].replace(",\"user_name\"", " : ").replace("}", "")+"\n";
+        }
+        return text;
+    }
+        //알수없는 에러 발생 con.getInputStream();
+    public void variance_insert_value(String subject_name, String user_name, String value) throws IOException{ //put
+        URL obj = new URL("http://localhost:8080/variance/add/user?subject_name="+subject_name+"&user_name="+user_name+"&value="+value);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        System.out.println("http://localhost:8080/variance/add/user?subject_name="+subject_name+"&user_name="+user_name+"&value="+value);
         con.setDoOutput(true);
         con.setRequestMethod("PUT");
         OutputStreamWriter out = new OutputStreamWriter(

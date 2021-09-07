@@ -46,10 +46,10 @@ public class SlackSendImage {
             // Throwing this exception indicates your app or Slack servers had a connectivity issue.
         }
     }
-//*
+/*
     public static void main(String[] args) throws Exception {
         String[] test = {"*[ 카카오 주식 정보 ]*", "-현재가: 156,500", "-증감치: +1,500", "-증감률: +0.97%", "-전일가: 155,000", "-거래량: 1,922,024", "-거래대금: 300,721백만", "http://cichart.paxnet.co.kr/pax/chart/candleChart/V201716/paxCandleChartV201716Daily.jsp?abbrSymbol=035720"};
         slackSendImage(test);
     }
-//*/
+*/
 }
