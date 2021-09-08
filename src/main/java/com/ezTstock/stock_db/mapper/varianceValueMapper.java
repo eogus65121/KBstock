@@ -1,5 +1,6 @@
 package com.ezTstock.stock_db.mapper;
 
+import com.ezTstock.stock_db.model.serverModel;
 import com.ezTstock.stock_db.model.varianceValue;
 import org.apache.ibatis.annotations.*;
 
@@ -19,4 +20,7 @@ public interface varianceValueMapper {
 
     @Update("update variance_value set value=#{value} where subject_name=#{subject_name} and user_name=#{user_name}") // variance value update
     void updateVarianceValue(@Param("subject_name") String subject_name, @Param("user_name") String user_name, @Param("value") String value);
+
+    @Select("select subject_name, value, current from variance_value where user_name=#{user_name}")
+    List<serverModel> selectServerData(@Param("user_name") String user_name);
 }

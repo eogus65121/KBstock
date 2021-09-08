@@ -1,12 +1,15 @@
 package com.ezTstock.stock_db.controller;
 
 import com.ezTstock.stock_db.mapper.varianceValueMapper;
+import com.ezTstock.stock_db.model.serverModel;
 import com.ezTstock.stock_db.model.varianceValue;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@ComponentScan(basePackages={"com.ezTstock.stock_db.mapper"})
 public class VarianceValueController {
     public varianceValueMapper mapper;
 
@@ -30,5 +33,10 @@ public class VarianceValueController {
     @DeleteMapping("/variance/value/delete/{user_name}")
     public void deleteVariance(@PathVariable("user_name") String user_name, @RequestParam("subject_name") String subject_name){
         mapper.deleteVarianceValue(subject_name, user_name);
+    }
+
+    @GetMapping("/server/data")
+    public List<serverModel> serverData(@RequestParam("user_name") String user_name){
+        return mapper.selectServerData(user_name);
     }
 }
