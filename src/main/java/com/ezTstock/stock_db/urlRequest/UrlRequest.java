@@ -7,6 +7,8 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static javax.accessibility.AccessibleText.CHARACTER;
+
 
 public class UrlRequest {
 
@@ -56,17 +58,12 @@ public class UrlRequest {
         }
         return text;
     }
-        //알수없는 에러 발생 con.getInputStream();
+        //subject_name 한글이 line 68 : getInputStream()에서 에러 발생 >> 영어로 실행할 경우 정상 작동
     public void variance_insert_value(String subject_name, String user_name, String value) throws IOException{ //put
         URL obj = new URL("http://localhost:8080/variance/add/user?subject_name="+subject_name+"&user_name="+user_name+"&value="+value);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        System.out.println("http://localhost:8080/variance/add/user?subject_name="+subject_name+"&user_name="+user_name+"&value="+value);
         con.setDoOutput(true);
         con.setRequestMethod("PUT");
-        OutputStreamWriter out = new OutputStreamWriter(
-                con.getOutputStream());
-        out.write("Resource content");
-        out.close();
         con.getInputStream();
     }
 
