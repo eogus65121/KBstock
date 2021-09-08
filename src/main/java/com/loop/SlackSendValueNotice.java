@@ -10,22 +10,27 @@ import java.io.IOException;
 
 import static com.slack.api.model.block.Blocks.*;
 import static com.slack.api.model.block.composition.BlockCompositions.*;
+import static com.slack.api.model.block.element.BlockElements.button;
 
 public class SlackSendValueNotice {
-    public static void slackSendMessage(String subject_Name, String sub_pastVal, String subject_Val, String varianceVal, String subject_code){
+    public void slackSendValueNotice(String subject_Name, String sub_pastVal, String subject_Val, String varianceVal, String subject_code){
         SlackImpl slack_json = new SlackImpl();
         String token = slack_json.readJ("bot_token");
         String channel = slack_json.readJ("channel");
-        boolean isMinus = varianceVal.startsWith("-")?true:false; //
+        String isMinus = varianceVal.startsWith("-")?"하락":"상승";
+        String sub_Val = Double.toString(Double.parseDouble(varianceVal)/100);
 
         try {
             ChatPostMessageResponse response = Slack.getInstance().methods(token).chatPostMessage(req -> req
                     .channel(channel)
                     .blocks(asBlocks(
                             section(s->s.text(markdownText("*[ "+subject_Name+" 가격변동 알림! ]*"))),
-                            actions(a->a
-                                    ),
-
+                            divider(),
+                            section(se->se.text(plainText(subject_Name+"의 가격이 기존의 "+sub_pastVal+"에서 "+subject_Val+"로 "+sub_Val+"%만큼 "+isMinus+"하였습니다."))),
+                            section(se->se.text(markdownText("우측 버튼을 누르면 네이버의 "+subject_Name+" 증시정보로 연결됩니다."))
+                                    .accessory(button(b->b.text(plainText(pt->pt.emoji(true).text("자세히 알아보기")))
+                                            .url("https://finance.naver.com/item/main.nhn?code="+subject_code)))
+                            ),
                             image(i->i
                                     .imageUrl("http://cichart.paxnet.co.kr/pax/chart/candleChart/V201716/paxCandleChartV201716Daily.jsp?abbrSymbol="+subject_code)
                                     .altText(subject_Name+"주식 그래프")
@@ -45,7 +50,7 @@ public class SlackSendValueNotice {
 
     /*
     public static void main(String[] args) throws Exception {
-        slackSendValueNotice("test");
+        slackSendValueNotice("LG전자", "147500", "144000", "-237", "066570");
     }
 
     */
