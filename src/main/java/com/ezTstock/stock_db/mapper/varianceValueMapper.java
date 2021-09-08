@@ -23,4 +23,7 @@ public interface varianceValueMapper {
 
     @Select("select subject_name, value, current from variance_value where user_name=#{user_name}")
     List<serverModel> selectServerData(@Param("user_name") String user_name);
+
+    @Update("update variance_value set current=#{current} where subject_name=#{subject_name} and user_name=#{user_name}")
+    void updateVarianceCurrent(@Param("current") String current, @Param("subject_name") String subject_name, @Param("user_name") String user_name);
 }

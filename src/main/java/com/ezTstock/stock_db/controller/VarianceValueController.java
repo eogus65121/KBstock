@@ -39,4 +39,9 @@ public class VarianceValueController {
     public List<serverModel> serverData(@RequestParam("user_name") String user_name){
         return mapper.selectServerData(user_name);
     }
+
+    @PostMapping("/server/current/update")
+    public void serverCurrent(@RequestParam("current") String current, @RequestParam("subject_name") String subject_name, @RequestParam("user_name") String user_name){
+        mapper.updateVarianceCurrent(current, subject_name, user_name);
+    }
 }
