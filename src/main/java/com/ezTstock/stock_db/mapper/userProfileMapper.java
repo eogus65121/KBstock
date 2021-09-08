@@ -1,6 +1,10 @@
 package com.ezTstock.stock_db.mapper;
 
+import com.ezTstock.stock_db.model.userProfile;
+import com.ezTstock.stock_db.model.userRequirement;
 import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 @Mapper
 public interface userProfileMapper {
@@ -16,4 +20,7 @@ public interface userProfileMapper {
 
     @Update("update user set requirement=#{requirement} where name=#{name}")  // user on off
     void updateUserRequirement(@Param("requirement") String requirement, @Param("name") String name);
+
+    @Select("select name from user where requirement='on'")
+    List<userRequirement> require_user();
 }
