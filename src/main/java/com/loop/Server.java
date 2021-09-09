@@ -49,7 +49,7 @@ public class Server {
 
                 if(current==null){//만약 기존 가격이 null이면 파싱 후 db에 해당 종목 현재가 수정
                     String input_Val = CNV.checkStockValue(subject_name);
-                    //db 업데이트 코드 (new current)
+                    //db 업데이트 코드 (new current)@@@@@@@@@
                 }else{//[0]=0 or 1, [1]=현재가, [2]=변동치*100, [3]=종목코드
                     String[] isChanged = CNV.checkStockValue(subject_name, Integer.parseInt(current), Double.parseDouble(value));
 
