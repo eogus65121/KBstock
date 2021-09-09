@@ -1,14 +1,14 @@
-package com.ezTstock.stock_db.mapper;
+package com.ezTstock.slack.mapper;
 
-import com.ezTstock.stock_db.model.userProfile;
-import com.ezTstock.stock_db.model.userRequirement;
+import com.ezTstock.slack.dto.UserRequirementDto;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
-public interface userProfileMapper {
-
+@Repository
+public interface UserProfileMapper {
     @Select("select name from user where name=#{name}") // user select
     String getUserName(@Param("name") String name);
 
@@ -22,5 +22,5 @@ public interface userProfileMapper {
     void updateUserRequirement(@Param("requirement") String requirement, @Param("name") String name);
 
     @Select("select name from user where requirement='on'")
-    List<userRequirement> require_user();
+    List<UserRequirementDto> require_user();
 }

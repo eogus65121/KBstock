@@ -1,9 +1,9 @@
-package com.ezTstock.slack.slashController;
+package com.ezTstock.slack.controller;
 
 import com.ezTstock.parsing.CurrentStockInfo;
-import com.ezTstock.slack.function.SlackSendImage;
-import com.ezTstock.slack.function.SlackSendMessage;
-import com.ezTstock.slack.dto.SlashCommandRequest;
+import com.ezTstock.slack.common.SlackSendImage;
+import com.ezTstock.slack.common.SlackSendMessage;
+import com.ezTstock.slack.dto.SlashCommandRequestDto;
 import org.springframework.http.MediaType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,13 +15,13 @@ import java.io.IOException;
 @Slf4j
 @RestController
 @RequestMapping
-public class CommandStockInfo {
+public class CommandStockInfoController {
     CurrentStockInfo currentStockInfo = new CurrentStockInfo();
     SlackSendMessage sendMessage = new SlackSendMessage();
     SlackSendImage sendImage = new SlackSendImage();
 
     @PostMapping(value = "/slack/command/stockInfo", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public void commandStockInfo(SlashCommandRequest dataPayload){
+    public void commandStockInfo(SlashCommandRequestDto dataPayload){
         log.info("Request 'POST /slack/command/stockInfo' request: {}", dataPayload);
         String subject = dataPayload.getText().replaceAll(" ", "");
         if(subject.equals("")){

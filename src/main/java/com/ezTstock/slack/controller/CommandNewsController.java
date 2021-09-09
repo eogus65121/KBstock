@@ -1,8 +1,8 @@
-package com.ezTstock.slack.slashController;
+package com.ezTstock.slack.controller;
 
 import com.ezTstock.parsing.StockNews;
-import com.ezTstock.slack.function.SlackSendMessage;
-import com.ezTstock.slack.dto.SlashCommandRequest;
+import com.ezTstock.slack.common.SlackSendMessage;
+import com.ezTstock.slack.dto.SlashCommandRequestDto;
 import org.springframework.http.MediaType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,12 +14,12 @@ import java.io.IOException;
 @Slf4j
 @RestController
 @RequestMapping
-public class CommandNews {
+public class CommandNewsController {
     SlackSendMessage sendMessage = new SlackSendMessage();
     StockNews stockNews = new StockNews();
 
     @PostMapping(value = "/slack/command/news", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public void commandNews(SlashCommandRequest dataPayload){
+    public void commandNews(SlashCommandRequestDto dataPayload){
         log.info("Request 'POST /slack/command/news' request: {}", dataPayload);
         String subject = dataPayload.getText().replaceAll(" ", "");
         if(subject.equals("")){

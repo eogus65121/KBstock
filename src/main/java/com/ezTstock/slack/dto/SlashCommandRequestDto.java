@@ -8,7 +8,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class SlashCommandRequest {
+public class SlashCommandRequestDto {
     private String token;
     private String team_id;
     private String team_domain;

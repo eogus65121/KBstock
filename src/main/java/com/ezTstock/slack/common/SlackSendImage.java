@@ -1,4 +1,4 @@
-package com.ezTstock.slack.function;
+package com.ezTstock.slack.common;
 
 import com.ezTstock.config.SlackImpl;
 import com.slack.api.Slack;
