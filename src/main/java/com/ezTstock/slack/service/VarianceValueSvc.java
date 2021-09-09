@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface VarianceValueSvc {
 
-    List<VarianceValueDto> selectVarianceValue(String user_name) throws Exception;
-
     List<VarianceValueDto> selectServerData(String user_name) throws Exception;
 
     void insert(String subject_name, String user_name, String value, String current) throws Exception;
