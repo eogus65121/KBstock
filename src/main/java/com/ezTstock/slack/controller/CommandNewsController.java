@@ -17,7 +17,8 @@ import java.io.IOException;
 public class CommandNewsController {
     SlackSendMessage sendMessage = new SlackSendMessage();
     StockNews stockNews = new StockNews();
-
+    
+    // 뉴스 내용 파싱 후 사용자에게 전송 기능
     @PostMapping(value = "/slack/command/news", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public void commandNews(SlashCommandRequestDto dataPayload){
         log.info("Request 'POST /slack/command/news' request: {}", dataPayload);

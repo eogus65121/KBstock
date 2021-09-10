@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface VarianceValueMapper {
 
-    @Select("select subject_name, value from variance_value where user_name=#{user_name}")
+    @Select("select * from variance_value where user_name=#{user_name}")
     List<VarianceValueDto> selectServerData(@Param("user_name") String user_name);
 
     @Insert("insert into variance_value values(#{subject_name}, #{user_name}, #{value}, #{current})")
