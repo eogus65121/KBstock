@@ -25,7 +25,7 @@ public class CommandRTVarianceController {
     @Autowired
     private UserProfileSvc userSvc;
 
-    // ok
+    // 계정 추가 및 requirement on / off  : ok
     @PostMapping(value = "/RTVariance", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public void commandRTVariance1(SlashCommandRequestDto dataPayload){
         log.info("Request 'POST /slack/command/RTVariance' request: {}", dataPayload);
@@ -35,6 +35,7 @@ public class CommandRTVarianceController {
 
         try{
             if(userSvc.getUserName(user_name) == null){
+                // requirement 기본 설정 off
                 userSvc.insertUserProfile(user_name, "off");
                 System.out.println("계정 추가 성공");
             }
@@ -43,16 +44,20 @@ public class CommandRTVarianceController {
         }
 
         try {
+            // parameter X
             if (text.equals("")) {
                 sendMessage.slackSendMessage("실시간 변동 알림 기능입니다. 계정이 없는 경우 자동으로 계정이 추가됩니다.\n"
                         + "** 알림 기능 관련 명령어 **\n" + "'/add' : 종목 추가하기 \n" + "'/remove' : 종목 제거하기 \n"
                         + "'/rtv (on/off) : 실시간 알림 (켜기/끄기) (기본설정 off)\n" + "'/subject' : 실시간 알림 종목 종류");
+                // parameter on
             } else if (text.equals("on")) {
                 userSvc.updateUserRequirement(text, user_name);
                 sendMessage.slackSendMessage("실시간 알림이 켜졌습니다.");
+                // parameter off
             } else if (text.equals("off")) {
                 userSvc.updateUserRequirement(text, user_name);
                 sendMessage.slackSendMessage("실시간 알림이 꺼졌습니다.");
+                // 지정된 parameter 값이 없는 경우
             } else {
                 sendMessage.slackSendMessage("지정된 명령어가 없습니다. 다시 입력해주세요.");
             }
@@ -61,7 +66,7 @@ public class CommandRTVarianceController {
         }
     }
 
-    // ok
+    // 실시간 알림을 원하는 종목명, 변동 수치를 추가하는 기능1
     @PostMapping(value = "/RTVAdd", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE) // slash add
     public void CommandRTVAdd(SlashCommandRequestDto dataPayload){
         log.info("Request 'POST /slack/command/RTVAdd' request: {}", dataPayload);
@@ -108,7 +113,6 @@ public class CommandRTVarianceController {
             if(userSvc.getUserName(user_name) == null) {
                 sendMessage.slackSendMessage( "계정이 없습니다. '/rtv'를 입력하여 계정을 추가해주세요");
             }else{
-                //sendMessage.slackSendMessage(urlRequest.variance_get_userSubject(user_name));
                 variableSvc.selectServerData(user_name); // String 가공할 코드 필요
 
                 sendMessage.slackSendMessage("");
@@ -118,11 +122,12 @@ public class CommandRTVarianceController {
         }
     }
 
+    // 사용자 입력값을 받아와 db에 추가하는 기능
     @PostMapping(value="/done", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public void CommandRTVHistory(SlashCommandRequestDto dataPayload) {
         String user_name = dataPayload.getUser_name();
         String text = dataPayload.getText();
-        String [] history = conversationHistory.fetchHistory(); // 0 : 종목, 1 : value
+        String [] history = conversationHistory.fetchHistory(); // 0 : subjectName, 1 : value
 
         if(text.equals("add")){
             sendMessage.slackSendMessage("종목 추가를 시작합니다.");
@@ -132,7 +137,7 @@ public class CommandRTVarianceController {
             variableSvc.insert(history[0], user_name, history[1], null);
             sendMessage.slackSendMessage( "추가 성공하였습니다.");
         }catch(Exception e){
-            sendMessage.slackSendMessage( "에러 발생");
+            sendMessage.slackSendMessage( "에러 발생 재시도 바랍니다.");
             e.printStackTrace();
         }
     }

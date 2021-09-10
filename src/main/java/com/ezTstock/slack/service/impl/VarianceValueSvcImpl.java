@@ -14,7 +14,7 @@ public class VarianceValueSvcImpl implements VarianceValueSvc {
     @Autowired
     private VarianceValueMapper mapper;
     
-    // 종목명, 변동값 가져오기
+    // 종목명, 변동값 가져오기 >> 전체값으로 가져오기
     @Override
     public List<VarianceValueDto> selectServerData(String user_name) throws Exception {
         return this.mapper.selectServerData(user_name);
