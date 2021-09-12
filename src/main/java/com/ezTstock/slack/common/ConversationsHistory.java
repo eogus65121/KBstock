@@ -29,7 +29,7 @@ public class ConversationsHistory {
                     .limit(2)
             );
             conversationHistory = Optional.ofNullable(result.getMessages());
-            history[0] = conversationHistory.toString().split("text=")[3].split(",")[0];
+            history[0] = conversationHistory.toString().split("text=")[3].split(",")[0].replaceAll(" ", "");
             history[1] = conversationHistory.toString().split("text=")[1].split(",")[0];
             logger.info("{} messages found in {}", conversationHistory.orElse(emptyList()).size(), channel);
             return history;

@@ -112,7 +112,7 @@ public class CommandRTVarianceController {
     public void CommandRTVRemove(SlashCommandRequestDto dataPayload){
         log.info("Request 'POST /slack/command/RTVRemove' request: {}", dataPayload);
         String user_name = dataPayload.getUser_name();
-        String text = dataPayload.getText();
+        String text = dataPayload.getText().replaceAll(" ", "");
         try{
             if(userSvc.getUserName(user_name) == null){
                 sendMessage.slackSendMessage("계정이 없습니다. '/rtv'를 입력하여 계정을 추가해주세요");
@@ -160,7 +160,7 @@ public class CommandRTVarianceController {
     @PostMapping(value="/done", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public void CommandRTVHistory(SlashCommandRequestDto dataPayload) {
         String user_name = dataPayload.getUser_name();
-        String text = dataPayload.getText();
+        String text = dataPayload.getText().replaceAll(" ", "");
         String [] history = conversationHistory.fetchHistory(); // 0 : subjectName, 1 : value
 
         if(text.equals("add")){
