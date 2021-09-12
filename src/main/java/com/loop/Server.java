@@ -5,19 +5,22 @@ import com.ezTstock.slack.dto.VarianceValueDto;
 import com.ezTstock.slack.service.impl.UserProfileSvcImpl;
 import com.ezTstock.slack.service.impl.VarianceValueSvcImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class Server {
+@Service
+public class Server extends Thread {
     @Autowired
     UserProfileSvcImpl require;
+
     @Autowired
     VarianceValueSvcImpl user_subjects;
-    @Autowired
+
     CheckNowValue CNV;
-    @Autowired
     SlackSendValueNotice SSVN;
 
+    //@Scheduled(fixedDelay=2000)
     public void Loop() throws Exception {
         while(true){
             require = new UserProfileSvcImpl();
