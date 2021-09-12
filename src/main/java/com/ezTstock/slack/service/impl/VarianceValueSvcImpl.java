@@ -40,7 +40,7 @@ public class VarianceValueSvcImpl implements VarianceValueSvc {
 
     // 실시간 현재가 수정
     @Override
-    public void updateVarianceCurrent(String current, String subject_name, String user_name) throws Exception {
-        this.mapper.updateVarianceCurrent(current, subject_name, user_name);
+    public void updateVarianceCurrent( String subject_name, String user_name, String current) throws Exception {
+        this.mapper.updateVarianceCurrent(subject_name, user_name, current);
     }
 }

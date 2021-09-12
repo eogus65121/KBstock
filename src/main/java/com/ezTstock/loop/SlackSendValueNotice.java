@@ -1,4 +1,4 @@
-package com.loop;
+package com.ezTstock.loop;
 
 import com.ezTstock.config.SlackImpl;
 import com.slack.api.Slack;
@@ -47,13 +47,5 @@ public class SlackSendValueNotice {
             // Throwing this exception indicates your app or Slack servers had a connectivity issue.
         }
     }
-
-    /*
-    public static void main(String[] args) throws Exception {
-        slackSendValueNotice("LG전자", "147500", "144000", "-237", "066570");
-    }
-
-    */
-
 
 }

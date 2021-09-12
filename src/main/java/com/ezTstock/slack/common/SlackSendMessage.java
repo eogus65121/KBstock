@@ -84,13 +84,4 @@ public class SlackSendMessage {
             // Throwing this exception indicates your app or Slack servers had a connectivity issue.
         }
     }
-
-    /*
-    public static void main(String[] args) throws Exception {
-        slackSendMessage("test");
-    }
-
-    */
-
-
 }

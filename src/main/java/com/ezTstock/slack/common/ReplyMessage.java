@@ -32,10 +32,4 @@ public class ReplyMessage {
             logger.error("error: {}", e.getMessage(), e);
         }
     }
-    /*
-    public static void main(String[] args) throws Exception {
-        // Uses a known channel ID and message TS
-        replyMessage("1630425820.000500");
-    }
-     */
 }

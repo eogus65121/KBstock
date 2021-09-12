@@ -1,4 +1,4 @@
-package com.loop;
+package com.ezTstock.loop;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -29,7 +29,7 @@ public class CheckNowValue {
         return Double.toString(trimedVal);
     }
 
-    public String[] checkStockValue(String subject, int compVal, double expectDiff) throws IOException {
+    public String[] checkStockValueArr(String subject, double compVal, double expectDiff) throws IOException {
         Document getCode = Jsoup.connect("https://www.ktb.co.kr/trading/popup/itemPop.jspx")
                 .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Safari/537.36")
                 .header("Accept-Language", "ko")
@@ -59,9 +59,4 @@ public class CheckNowValue {
 
         return returnVal;
     }
-
-    /*
-    public static void main(String[] args) throws Exception {
-        String[] tmp = checkStockValue("LG전자", 170000, 0.5);
-    }*/
 }
