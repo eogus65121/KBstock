@@ -3,6 +3,7 @@ package com.ezTstock.slack.controller;
 import com.ezTstock.slack.dto.SlashCommandRequestDto;
 import com.ezTstock.slack.common.ConversationsHistory;
 import com.ezTstock.slack.common.SlackSendMessage;
+import com.ezTstock.slack.dto.VarianceValueDto;
 import com.ezTstock.slack.service.UserProfileSvc;
 import com.ezTstock.slack.service.VarianceValueSvc;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -66,7 +69,7 @@ public class CommandRTVarianceController {
         }
     }
 
-    // 실시간 알림을 원하는 종목명, 변동 수치를 추가하는 기능1
+    // 실시간 알림을 원하는 종목명, 변동 수치를 추가하는 기능1 : ok
     @PostMapping(value = "/RTVAdd", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE) // slash add
     public void CommandRTVAdd(SlashCommandRequestDto dataPayload){
         log.info("Request 'POST /slack/command/RTVAdd' request: {}", dataPayload);
@@ -96,33 +99,40 @@ public class CommandRTVarianceController {
             }else if(text == null){
                 sendMessage.slackSendMessage("입력값이 없습니다. '/rtv 종목명' 으로 다시 입력해주세요");
             } else{
-                //제거코드
+                variableSvc.deleteVarianceValue(text, user_name);
+                sendMessage.slackSendMessage("제거가 완료되었습니다.");
             }
         }catch (Exception e){
+            sendMessage.slackSendMessage("제거 에러발생 재시도 바랍니다.");
             e.printStackTrace();
         }
     }
 
-    // error
+    // 실시간 종목 출력 : ok
     @PostMapping(value="/RTVSubject", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public void CommandRTVSubject(SlashCommandRequestDto dataPayload){
         log.info("Request 'POST /slack/command/RTVSubject' request: {}", dataPayload);
         String user_name = dataPayload.getUser_name();
-        sendMessage.slackSendMessage("*실시간 종목 출력 기능입니다*");
+        sendMessage.slackSendMessage("실시간 종목 출력 기능입니다");
         try{
             if(userSvc.getUserName(user_name) == null) {
                 sendMessage.slackSendMessage( "계정이 없습니다. '/rtv'를 입력하여 계정을 추가해주세요");
             }else{
-                variableSvc.selectServerData(user_name); // String 가공할 코드 필요
-
-                sendMessage.slackSendMessage("");
+                List<VarianceValueDto> varianceValueList =  variableSvc.selectServerData(user_name); // String 가공할 코드 필요
+                StringBuilder sb = new StringBuilder();
+                sb.append(user_name +"님의 실시간 종목 정보입니다.\n");
+                for(int i = 0; i< varianceValueList.size(); i++){
+                    sb.append(varianceValueList.get(i).getSubject_name() + " : ");
+                    sb.append(varianceValueList.get(i).getValue() + "\n");
+                }
+                sendMessage.slackSendMessage(sb.toString());
             }
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    // 사용자 입력값을 받아와 db에 추가하는 기능
+    // 사용자 입력값을 받아와 db에 추가하는 기능 : ok
     @PostMapping(value="/done", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public void CommandRTVHistory(SlashCommandRequestDto dataPayload) {
         String user_name = dataPayload.getUser_name();
