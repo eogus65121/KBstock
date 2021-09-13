@@ -41,8 +41,7 @@ public class Server {
                     if (isChanged[0].equals("1")) {//설정한 변동치보다 더 변했음
                         user_subjects.updateVarianceCurrent(subject_name, user_name, isChanged[1]);//db의 해당 주가 정보를 수정(해당 종목의 현재가만)
 
-                        double ratio = Double.parseDouble(isChanged[2]) / 100;
-                        ratio = Math.round(ratio*100)/100;
+                        double ratio = Double.parseDouble(isChanged[2])/100;
                         //slack 사용자에게 가격 변동에 대한 메시지 전송 (종목명, 종목 기존가, 종목 현재가, 종목 변동치, 종목 코드)
                         ssvn.slackSendValueNotice(subject_name, current, isChanged[1], Double.toString(ratio), isChanged[3]);
                     }
