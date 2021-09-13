@@ -23,5 +23,5 @@ public interface VarianceValueMapper {
     void updateVarianceValue(@Param("subject_name") String subject_name, @Param("user_name") String user_name, @Param("value") String value);
 
     @Update("update variance_value set current=#{current} where subject_name=#{subject_name} and user_name=#{user_name}")
-    void updateVarianceCurrent(@Param("current") String current, @Param("subject_name") String subject_name, @Param("user_name") String user_name);
+    void updateVarianceCurrent(@Param("subject_name") String subject_name, @Param("user_name") String user_name, @Param("current") String current);
 }

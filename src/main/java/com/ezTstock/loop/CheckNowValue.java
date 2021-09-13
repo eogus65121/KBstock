@@ -46,15 +46,16 @@ public class CheckNowValue {
 
         String nowVal = searchDoc.getElementById("_nowVal").text();
         nowVal = nowVal.replaceAll(",",""); //쉼표 제거
-        double trimedVal = Double.parseDouble(nowVal); //현재가 가져오기
-        double diff = trimedVal -compVal; //현재가-기준가
-        diff = Math.round((diff/compVal)*10000)/100.0;
+        int trimedVal = Integer.parseInt(nowVal)*100; //현재가 가져오기
+        int compare = Math.abs(trimedVal-(int)compVal*100); //현재가-기준가
+        double diff = ((double)compare/compVal)*100;
         String[] returnVal = {"0","","", subject_code};
 
-        if(Math.abs(diff)>=Math.abs(expectDiff)){
-            returnVal[0] = "1";
+        if(Math.abs((int)(diff))<Math.abs((int)(expectDiff*100))){
         }
-        returnVal[1] = Integer.toString((int)trimedVal);
+        else
+            returnVal[0] = "1";
+        returnVal[1] = Integer.toString(trimedVal/100);
         returnVal[2] = Integer.toString((int)(diff*100));
 
         return returnVal;

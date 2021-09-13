@@ -17,7 +17,7 @@ public class SlackSendValueNotice {
         SlackImpl slack_json = new SlackImpl();
         String token = slack_json.readJ("bot_token");
         String channel = slack_json.readJ("channel");
-        String isMinus = varianceVal.startsWith("-")?"하락":"상승";
+        String isMinus = (Integer.parseInt(sub_pastVal)>Integer.parseInt(subject_Val))?"하락":"상승";
         String sub_Val = Double.toString(Double.parseDouble(varianceVal)/100);
 
         try {
