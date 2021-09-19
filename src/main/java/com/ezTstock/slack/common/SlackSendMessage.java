@@ -7,6 +7,8 @@ import com.slack.api.methods.response.chat.ChatPostMessageResponse;
 import com.slack.api.model.Message;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.slack.api.model.block.Blocks.*;
 import static com.slack.api.model.block.composition.BlockCompositions.markdownText;
@@ -41,35 +43,38 @@ public class SlackSendMessage {
         String token = slack_json.readJ("bot_token");
         String channel = slack_json.readJ("channel");
 
+        List<String[]> list = new ArrayList<>();
+
         try {
-            String[] News1 = inputNews[1].split("\n");
-            String[] News2 = inputNews[2].split("\n");
-            String[] News3 = inputNews[3].split("\n");
+            for(int i = 1; i < inputNews.length; i++){
+                list.add(inputNews[i].split("\n"));
+            }
+            System.out.println();
 
             ChatPostMessageResponse response = Slack.getInstance().methods(token).chatPostMessage(req -> req
                     .channel(channel)
                     .blocks(asBlocks(
                             section(s->s.text(markdownText(inputNews[0]))),
                             divider(),
-                            section(s->s.text(plainText(pt->pt.emoji(true).text(News1[0])))),
-                            section(s->s.text(plainText(pt->pt.emoji(true).text(News1[1])))),
-                            section(se->se.text(markdownText(News1[3]))
+                            section(s->s.text(plainText(pt->pt.emoji(true).text(list.get(0)[0])))),
+                            section(s->s.text(plainText(pt->pt.emoji(true).text(list.get(0)[1])))),
+                            section(se->se.text(markdownText(list.get(0)[3]))
                                     .accessory(button(b->b.text(plainText(pt->pt.emoji(true).text("자세히 알아보기")))
-                                            .url(News1[2])))
+                                            .url(list.get(0)[2])))
                             ),
                             divider(),
-                            section(s->s.text(plainText(pt->pt.emoji(true).text(News2[0])))),
-                            section(s->s.text(plainText(pt->pt.emoji(true).text(News2[1])))),
-                            section(se->se.text(markdownText(News2[3]))
+                            section(s->s.text(plainText(pt->pt.emoji(true).text(list.get(1)[0])))),
+                            section(s->s.text(plainText(pt->pt.emoji(true).text(list.get(1)[1])))),
+                            section(se->se.text(markdownText(list.get(1)[3]))
                                     .accessory(button(b->b.text(plainText(pt->pt.emoji(true).text("자세히 알아보기")))
-                                            .url(News2[2])))
+                                            .url(list.get(1)[2])))
                             ),
                             divider(),
-                            section(s->s.text(plainText(pt->pt.emoji(true).text(News3[0])))),
-                            section(s->s.text(plainText(pt->pt.emoji(true).text(News3[1])))),
-                            section(se->se.text(markdownText(News3[3]))
+                            section(s->s.text(plainText(pt->pt.emoji(true).text(list.get(2)[0])))),
+                            section(s->s.text(plainText(pt->pt.emoji(true).text(list.get(2)[1])))),
+                            section(se->se.text(markdownText(list.get(2)[3]))
                                     .accessory(button(b->b.text(plainText(pt->pt.emoji(true).text("자세히 알아보기")))
-                                            .url(News3[2])))
+                                            .url(list.get(2)[2])))
                             ),
                             divider()
                     )));

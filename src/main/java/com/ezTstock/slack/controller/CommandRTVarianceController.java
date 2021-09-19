@@ -202,4 +202,16 @@ public class CommandRTVarianceController {
             e.printStackTrace();
         }
     }
+
+    @PostMapping(value="/stockword", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public void StockWord(){
+        String[] str = {"*초보자를 위한 주식 가이드*", " \n증권용어 사전\nhttp://ko.stockdic.wikidok.net/Wiki\n출처-http://ko.stockdic.wikidok.net/Wiki",
+                " \n증권용어 관련 자료\nhttps://ownscale.tistory.com/67\n출처-https://ownscale.tistory.com/67",
+         " \n주식 매매 관련 자료\nhttps://cjhong.tistory.com/261\n출처-https://cjhong.tistory.com/261"};
+        try{
+            sendMessage.slackSendMessage(str);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }
