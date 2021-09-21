@@ -57,6 +57,6 @@ public class CheckNowValue {
         returnVal[1] = Integer.toString(trimedVal/100); //현재가 입력 (곱해준 100 정상화)
         returnVal[2] = Integer.toString((int)(realDiff)); //double>int>String 형변환은 소숫점을 문자열에 미포함하기 위함
 
-        return returnVal;
+        return returnVal; //test
     }
 }
