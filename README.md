@@ -15,7 +15,7 @@
 
 ## 서비스 화면
 - Windows10
-![1](https://ibb.co/R0444Lb "실시간 변동 알림 기능")
+![1](https://ibb.co/R0444Lb)
 ![2](https://ibb.co/hB1j9HS "주식 이용 가이드 기능")
 ![3](https://ibb.co/BncQCDc "주식 종목의 실시간 정보 기능")
 ![4](https://ibb.co/9crxWNB "주식 종목의 최신 뉴스 기능")
