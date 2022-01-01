@@ -13,6 +13,7 @@
 - Language : Java 8
 - Web Framework : Spring boot
 - IDE/CodeEditor : IntelliJ IDEA
+- DB : MySQL
 
 ## 서비스 화면
 - ### Windows10
