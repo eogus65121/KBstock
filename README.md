@@ -30,3 +30,6 @@
 ![](https://i.ibb.co/1vYb5bw/6.jpg)
 ![](https://i.ibb.co/HP73scN/7.jpg)
 ![](https://i.ibb.co/jVmNQHk/8.jpg)
+
+## 정보
+- 개발자 : 대구대학교 컴퓨터공학과 [백대현](https://github.com/eogus65121), [김태성](https://github.com/tay97kim)
