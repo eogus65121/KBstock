@@ -15,13 +15,13 @@
 
 ## 서비스 화면
 - Windows10
-![1](https://ibb.co/R0444Lb)
-![2](https://ibb.co/hB1j9HS "주식 이용 가이드 기능")
-![3](https://ibb.co/BncQCDc "주식 종목의 실시간 정보 기능")
-![4](https://ibb.co/9crxWNB "주식 종목의 최신 뉴스 기능")
+![](https://i.ibb.co/hW111p9/1.png)
+![](https://i.ibb.co/tqPtKc9/2.png)
+![](https://i.ibb.co/PDFP6pF/3.png)
+![](https://i.ibb.co/VJqFTtb/4.png)
 
 - Mobile(iPhoneXS)
-![5](https://ibb.co/hLhYw6Z "주식 이용 가이드 기능")
-![6](https://ibb.co/1vYb5bw "실시간 변동 알림 기능")
-![7](https://ibb.co/HP73scN "주식 종목의 최신 뉴스 기능")
-![8](https://ibb.co/jVmNQHk "주식 종목의 실시간 정보 기능")
+![](https://i.ibb.co/LYbNHFJ/5.jpg)
+![](https://i.ibb.co/Vj03Z3P/6.jpg)
+![](https://i.ibb.co/3F1Qqxf/7.jpg)
+![](https://i.ibb.co/M8rvt9k/8.jpg)
